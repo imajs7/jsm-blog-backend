@@ -1,6 +1,7 @@
 package com.jsmblog.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	public Slugify slugify;
 
@@ -42,30 +43,38 @@ public class CategoryServiceImpl implements CategoryService {
 	public CategoryDto editCategory(CategoryDto categoryDto, Integer categoryId) {
 		Category categoryFindById = categoryDao.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-		
+
 		categoryFindById.setTitle(categoryDto.getTitle());
 		categoryFindById.setDescription(categoryDto.getDescription());
 		String slug = slugify.getSlug(categoryDto.getTitle());
 		categoryFindById.setSlug(slug);
-		return null;
+		Category savedCategory = categoryDao.save(categoryFindById);
+		return this.categoryToCategoryDto(savedCategory);
 	}
 
 	@Override
 	public CategoryDto getCategoryById(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		Category categoryFindById = categoryDao.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+		return this.categoryToCategoryDto(categoryFindById);
 	}
 
 	@Override
 	public List<CategoryDto> getAllCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Category> categories = categoryDao.findAll();
+		
+		List<CategoryDto> listOfCategoryDto = categories.stream()
+			.map((category) -> this.categoryToCategoryDto(category)).collect(Collectors.toList());
+		
+		return listOfCategoryDto;
 	}
 
 	@Override
 	public CategoryDto deleteCategory(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		Category categoryFindById = categoryDao.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+		this.categoryDao.delete(categoryFindById);
+		return this.categoryToCategoryDto(categoryFindById);
 	}
 
 	public Category categoryDtoToCategory(CategoryDto categoryDto) {

@@ -49,7 +49,10 @@ public class UserController {
 
 	// put user
 	@PutMapping("/edituser/{userId}")
-	public ResponseEntity<UserDto> editUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId) {
+	public ResponseEntity<UserDto> editUser(@Valid
+			@RequestBody UserDto userDto, 
+			@PathVariable Integer userId
+			) {
 		UserDto editedUser = this.userService.editUser(userDto, userId);
 		return new ResponseEntity<>(editedUser, HttpStatus.OK);
 	}

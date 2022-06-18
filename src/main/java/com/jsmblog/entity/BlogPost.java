@@ -1,15 +1,15 @@
 package com.jsmblog.entity;
 
 import java.sql.Blob;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.jsmblog.utility.ProjectConstants;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +34,18 @@ public class BlogPost {
 	@Column(nullable = false)
 	private String title;
 	
-	@Column(length =  ProjectConstants.CONTENT_LENGTH)
 	private Blob content;
+	
+	private String featuredImage;
+	
+	private Date createDate;
+	
+	private Date modifiedDate;
+	
+	@ManyToOne
+	private Category category;
+	
+	@ManyToOne
+	private User author;
 	
 }
