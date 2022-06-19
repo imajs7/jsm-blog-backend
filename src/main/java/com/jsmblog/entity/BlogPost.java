@@ -1,6 +1,5 @@
 package com.jsmblog.entity;
 
-import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,7 +33,7 @@ public class BlogPost {
 	@Column(nullable = false)
 	private String title;
 	
-	private Blob content;
+	private String content;
 	
 	private String featuredImage;
 	
@@ -46,6 +45,6 @@ public class BlogPost {
 	private Category category;
 	
 	@ManyToOne
-	private User author;
+	private User user;
 	
 }

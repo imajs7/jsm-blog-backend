@@ -27,28 +27,28 @@ public class UserController {
 	private UserService userService;
 
 	// get all users
-	@GetMapping("/getuser")
+	@GetMapping
 	public ResponseEntity<List<UserDto>> getAllUsers() {
 		List<UserDto> allUsers = this.userService.getAllUsers();
 		return new ResponseEntity<>(allUsers, HttpStatus.FOUND);
 	}
 
 	// get user by id
-	@GetMapping("/getuser/{userId}")
+	@GetMapping("/{userId}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Integer userId) {
 		UserDto userFoundById = this.userService.getUserById(userId);
 		return new ResponseEntity<>(userFoundById, HttpStatus.FOUND);
 	}
 
 	// post user
-	@PostMapping("/adduser")
+	@PostMapping
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 		UserDto addedUserDto = this.userService.addUser(userDto);
 		return new ResponseEntity<>(addedUserDto, HttpStatus.CREATED);
 	}
 
 	// put user
-	@PutMapping("/edituser/{userId}")
+	@PutMapping("/{userId}")
 	public ResponseEntity<UserDto> editUser(@Valid
 			@RequestBody UserDto userDto, 
 			@PathVariable Integer userId
@@ -58,7 +58,7 @@ public class UserController {
 	}
 
 	// delete user
-	@DeleteMapping("/deleteuser/{userId}")
+	@DeleteMapping("/{userId}")
 	public ResponseEntity<UserDto> deleteUser(@PathVariable Integer userId) {
 		UserDto deletedUser = this.userService.deleteUser(userId);
 		return new ResponseEntity<>(deletedUser, HttpStatus.OK);

@@ -67,7 +67,7 @@ public class User {
 	private int power;
 	
 	@Builder.Default
-	@OneToMany(mappedBy = "author")
+	@OneToMany(mappedBy = "user")
 	private List<BlogPost> blogPosts = new ArrayList<>();
 	
 }

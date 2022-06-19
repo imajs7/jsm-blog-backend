@@ -11,5 +11,8 @@ public interface BlogPostService {
 	BlogPostDto getBlogPostById(Integer blogPostId);
 	BlogPostDto editBlogPost(BlogPostDto blogPostDto, Integer blogPostId);
 	BlogPostDto deleteBlogPost(Integer blogPostId);
+	List<BlogPostDto> getPostByUser(Integer userId);
+	List<BlogPostDto> getPostByCategory(Integer categoryId);
+	List<BlogPostDto> searchPost(String keyword);
 
 }

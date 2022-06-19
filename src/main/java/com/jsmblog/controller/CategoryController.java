@@ -27,28 +27,28 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	// get all category
-	@GetMapping("/getcategory")
+	@GetMapping
 	public ResponseEntity<List<CategoryDto>> getAllCategory() {
 		List<CategoryDto> allCategories = this.categoryService.getAllCategories();
 		return new ResponseEntity<>(allCategories, HttpStatus.FOUND);
 	}
 	
 	// get category by id
-	@GetMapping("/getcategory/{categoryId}")
+	@GetMapping("/{categoryId}")
 	public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Integer categoryId){
 		CategoryDto categoryFoundById = this.categoryService.getCategoryById(categoryId);
 		return new ResponseEntity<CategoryDto>(categoryFoundById, HttpStatus.FOUND);
 	}
 	
 	// create new category
-	@PostMapping("/addcategory")
+	@PostMapping
 	public ResponseEntity<CategoryDto> addCategory(@Valid @RequestBody CategoryDto categoryDto) {
 		CategoryDto savedCategoryDto = this.categoryService.addCategory(categoryDto);
 		return new ResponseEntity<CategoryDto>(savedCategoryDto, HttpStatus.CREATED);
 	}
 	
 	// edit category by id
-	@PutMapping("/editcategory/{categoryId}")
+	@PutMapping("/{categoryId}")
 	public ResponseEntity<CategoryDto> editCategory(@Valid 
 			@RequestBody CategoryDto categoryDto,
 			@PathVariable Integer categoryId
@@ -58,7 +58,7 @@ public class CategoryController {
 	}	
 	
 	// delete category
-	@DeleteMapping("/deletecategory/{categoryId}")
+	@DeleteMapping("/{categoryId}")
 	public ResponseEntity<CategoryDto> deleteCategory(@PathVariable Integer categoryId){
 		CategoryDto deletedCategory = this.categoryService.deleteCategory(categoryId);
 		return new ResponseEntity<CategoryDto>(deletedCategory, HttpStatus.OK);

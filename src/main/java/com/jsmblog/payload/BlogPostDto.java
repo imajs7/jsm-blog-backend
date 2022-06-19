@@ -1,6 +1,5 @@
 package com.jsmblog.payload;
 
-import java.sql.Blob;
 import java.util.Date;
 
 import com.jsmblog.entity.Category;
@@ -23,7 +22,7 @@ public class BlogPostDto {
 	
 	private String title;
 	
-	private Blob content;
+	private String content;
 	
 	private String featuredImage;
 	
@@ -33,6 +32,6 @@ public class BlogPostDto {
 	
 	private Category category;
 	
-	private User author;
+	private User user;
 
 }
