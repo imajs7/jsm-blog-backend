@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jsmblog.utility.Status;
 import com.jsmblog.utility.UserRole;
 
@@ -68,6 +69,7 @@ public class User {
 	
 	@Builder.Default
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<BlogPost> blogPosts = new ArrayList<>();
 	
 }

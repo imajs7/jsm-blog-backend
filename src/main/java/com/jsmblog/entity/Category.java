@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +38,7 @@ public class Category {
 	
 	@Builder.Default
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<BlogPost> blogPosts = new ArrayList<>();
 
 }

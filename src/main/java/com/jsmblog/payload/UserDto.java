@@ -89,6 +89,5 @@ public class UserDto {
 	private UserRole role;
 	private Status status;
 	private int power;
-	
 
 }
