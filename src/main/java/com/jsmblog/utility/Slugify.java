@@ -1,4 +1,4 @@
-package com.jsmblog.config;
+package com.jsmblog.utility;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;

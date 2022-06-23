@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jsmblog.config.Slugify;
 import com.jsmblog.entity.Category;
 import com.jsmblog.exception.ResourceNotFoundException;
 import com.jsmblog.payload.CategoryDto;
 import com.jsmblog.repository.CategoryDao;
 import com.jsmblog.service.CategoryService;
+import com.jsmblog.utility.Slugify;
 
 import lombok.extern.slf4j.Slf4j;
 

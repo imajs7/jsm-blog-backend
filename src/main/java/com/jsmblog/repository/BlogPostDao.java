@@ -14,5 +14,7 @@ public interface BlogPostDao extends JpaRepository<BlogPost, Integer>{
 	
 	List<BlogPost> findByUser(User user);
 	List<BlogPost> findByCategory(Category category);
+	List<BlogPost> findByTitleContaining(String keyword);
+	List<BlogPost> findByContentContaining(String keyword);
 
 }

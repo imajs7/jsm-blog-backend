@@ -1,4 +1,4 @@
-package com.jsmblog.exception;
+package com.jsmblog.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
