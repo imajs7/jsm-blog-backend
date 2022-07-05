@@ -1,12 +1,13 @@
 package com.jsmblog.payload;
 
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.jsmblog.utility.Status;
-import com.jsmblog.utility.UserRole;
+import com.jsmblog.entity.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -86,8 +87,6 @@ public class UserDto {
 	private String shippingPincode;
 	
 	// security related
-	private UserRole role;
-	private Status status;
-	private int power;
+	private Set<Role> roles;
 
 }

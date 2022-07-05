@@ -7,14 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jsmblog.entity.Role;
 import com.jsmblog.entity.User;
 import com.jsmblog.exception.*;
 import com.jsmblog.payload.UserDto;
+import com.jsmblog.repository.RoleDao;
 import com.jsmblog.repository.UserDao;
 import com.jsmblog.service.UserService;
-import com.jsmblog.utility.Status;
-import com.jsmblog.utility.UserPower;
-import com.jsmblog.utility.UserRole;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private RoleDao roleDao;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -31,9 +33,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto addUser(UserDto userDto) {
 		User newUser = this.UserdtoToUser(userDto);
-		newUser.setRole(UserRole.SUBSCRIBER);
-		newUser.setStatus(Status.DISABLED);
-		newUser.setPower(UserPower.P000.power);
 		User savedUser = userDao.save(newUser);
 		log.info("New user added -> {}", newUser);
 		return this.userToUserDto(savedUser);
@@ -96,6 +95,23 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		userDao.delete(userFoundById);
 		return this.userToUserDto(userFoundById);
+	}
+	
+	@Override
+	public UserDto resetPassword(Integer userId, String password) {
+		User userFoundById = userDao.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+		userFoundById.setPassword(password);
+		User savedUser = userDao.save(userFoundById);
+		return this.userToUserDto(savedUser);
+	}
+	
+	@Override
+	public void addRoleToUser(Integer userId, String roleName) {
+		User userFoundById = userDao.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+		Role role = roleDao.findByRoleName(roleName);
+		userFoundById.addRole(role);	
 	}
 
 	// Model Mapper - User To UserDTO

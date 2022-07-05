@@ -1,6 +1,7 @@
 package com.jsmblog.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jsmblog.entity.Role;
 import com.jsmblog.payload.UserDto;
 import com.jsmblog.service.UserService;
+
+import lombok.Data;
 
 @RestController
 @RequestMapping("/user")
@@ -39,6 +43,13 @@ public class UserController {
 		UserDto userFoundById = this.userService.getUserById(userId);
 		return new ResponseEntity<>(userFoundById, HttpStatus.FOUND);
 	}
+	
+	// Get user Role by userId
+	@GetMapping("/roles/{userId}")
+	public ResponseEntity<Set<Role>> getRoleByUserId(@PathVariable Integer userId) {
+		Set<Role> roles = userService.getUserById(userId).getRoles();
+		return ResponseEntity.ok().body(roles);
+	}
 
 	// post user
 	@PostMapping
@@ -56,6 +67,15 @@ public class UserController {
 		UserDto editedUser = this.userService.editUser(userDto, userId);
 		return new ResponseEntity<>(editedUser, HttpStatus.OK);
 	}
+	
+	// Save user Role by userId
+	@PutMapping("/addroletouser")
+	public ResponseEntity<?> addRoleToUser(
+			@RequestBody UserRoleFormData userRoleFormData
+			) {
+		userService.addRoleToUser(userRoleFormData.getUserId(), userRoleFormData.getRoleName());
+		return ResponseEntity.ok().build();
+	}
 
 	// delete user
 	@DeleteMapping("/{userId}")
@@ -64,4 +84,10 @@ public class UserController {
 		return new ResponseEntity<>(deletedUser, HttpStatus.OK);
 	}
 
+}
+
+@Data
+class UserRoleFormData {
+	private int userId;
+	private String roleName;
 }

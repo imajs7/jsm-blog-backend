@@ -1,7 +1,6 @@
 package com.jsmblog.service;
 
 import java.util.List;
-
 import com.jsmblog.payload.UserDto;
 
 public interface UserService {
@@ -11,5 +10,8 @@ public interface UserService {
 	UserDto getUserById(Integer userId);
 	List<UserDto> getAllUsers();
 	UserDto deleteUser(Integer userId);
+	UserDto resetPassword(Integer userId, String password);
+	
+	void addRoleToUser(Integer userId, String roleName);
 
 }

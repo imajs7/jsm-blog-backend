@@ -37,6 +37,8 @@ public class BlogPost {
 	
 	private String featuredImage;
 	
+	private String postStatus;
+	
 	private Date createDate;
 	
 	private Date modifiedDate;

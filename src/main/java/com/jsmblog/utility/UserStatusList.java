@@ -1,11 +1,11 @@
 package com.jsmblog.utility;
 
-public enum Status {
+public enum UserStatusList {
 	
 	DISABLED,
 	ENABLED,
 	SUSPENDED,
 	TERMINATED,
-	BANNED;
+	BANNED
 
 }
