@@ -21,8 +21,6 @@ import com.jsmblog.entity.Role;
 import com.jsmblog.payload.UserDto;
 import com.jsmblog.service.UserService;
 
-import lombok.Data;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -69,12 +67,13 @@ public class UserController {
 	}
 	
 	// Save user Role by userId
-	@PutMapping("/addroletouser")
+	@PutMapping("/addroletouser/{userId}")
 	public ResponseEntity<?> addRoleToUser(
-			@RequestBody UserRoleFormData userRoleFormData
-			) {
-		userService.addRoleToUser(userRoleFormData.getUserId(), userRoleFormData.getRoleName());
-		return ResponseEntity.ok().build();
+			@RequestBody Role role,
+			@PathVariable Integer userId) {
+		
+		UserDto savedUserDto = userService.addRoleToUser(userId, role.getRoleName());
+		return ResponseEntity.ok().body(savedUserDto);
 	}
 
 	// delete user
@@ -84,10 +83,4 @@ public class UserController {
 		return new ResponseEntity<>(deletedUser, HttpStatus.OK);
 	}
 
-}
-
-@Data
-class UserRoleFormData {
-	private int userId;
-	private String roleName;
 }

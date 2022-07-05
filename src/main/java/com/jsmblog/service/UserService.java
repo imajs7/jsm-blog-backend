@@ -12,6 +12,6 @@ public interface UserService {
 	UserDto deleteUser(Integer userId);
 	UserDto resetPassword(Integer userId, String password);
 	
-	void addRoleToUser(Integer userId, String roleName);
+	UserDto addRoleToUser(Integer userId, String roleName);
 
 }

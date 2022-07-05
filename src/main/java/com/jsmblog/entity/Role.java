@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +22,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name="roles")
+@EqualsAndHashCode(exclude = "users")
+@ToString(exclude = "users")
 public class Role {
 	
 	@Id

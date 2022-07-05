@@ -107,11 +107,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void addRoleToUser(Integer userId, String roleName) {
+	public UserDto addRoleToUser(Integer userId, String roleName) {
 		User userFoundById = userDao.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		Role role = roleDao.findByRoleName(roleName);
 		userFoundById.addRole(role);	
+		User savedUser = userDao.save(userFoundById);
+		return this.userToUserDto(savedUser);
 	}
 
 	// Model Mapper - User To UserDTO
